@@ -63,8 +63,8 @@ void setup() {
   }
   Serial.begin(9600);
 }
-    
-void sevenSegWrite(byte digit) {
+
+void sevenSegWrite(byte digit, int delayLength) {
   byte outputDigit = 37; // Default NULL
   
   Serial.println(char(digit));
@@ -85,7 +85,12 @@ void sevenSegWrite(byte digit) {
   for (byte i = 0; i < 7; ++i) {
     digitalWrite(pin + i, sevenSegment[outputDigit][i]);
   }
-  delay(500);
+  delay(delayLength);
+}
+
+// Default to 500ms if no custom delay is given
+void sevenSegWrite(byte digit) {
+    sevenSegWrite(digit, 500);
 }
 
 void loop() {
